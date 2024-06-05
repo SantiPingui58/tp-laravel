@@ -25,6 +25,15 @@
 <body>
     <div class="container">
         <h1 class="mt-5">Tienda</h1>
+
+
+        <form action="/store" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar por nombre" name="nombre">
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </div>
+        </form>
+
         <div class="row">
             @if(count($items)>0)
             @foreach ($items as $item)

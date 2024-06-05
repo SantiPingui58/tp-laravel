@@ -8,11 +8,18 @@ use App\Models\StoreItem;
 
 class StoreController extends Controller
 {
+
     public function index() {
-        $items = StoreItem::all();
+        if(request()->has('nombre')) {
+
+        $items = StoreItem::where('nombre','like','%'.request()->input('nombre').'%')
+        ->orderBy('precio')->get();
+        } else {
+            $items = StoreItem::all();
+        }
+
         return view('store.index',['items'=> $items]);
     }
-
 
     public function view($id) {
         $item = StoreItem::find($id);
