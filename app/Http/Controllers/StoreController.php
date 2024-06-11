@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StoreItem;
+use App\Models\Image;
 
 class StoreController extends Controller
 {
@@ -37,13 +38,25 @@ class StoreController extends Controller
     }
 
     public function create() {
+
+        //Verificar el tamaño
+        $size = request()->file()->getSize();
+        $extension = request()->file()->getClientOrioginalExtension();
+        $src = request()->file('image')->store('products');
+
+        $image = new Image();
+        $image->size = $size;
+        $image->extension = $extension;
+        $image->src = $src;
+        $image-save();
+
         $item = new StoreItem();
         $item->nombre = request()->input('nombre');
         $item->descripcion = request()->input('descripcion');
         $item->precio = request()->input('precio');
         $item->descuento = request()->input('descuento');
         $item->stock = request()->input('stock');
-        $item->imagen = request()->input('imagen');
+        $item->imagen = $image->id;
         $item->save();
         return redirect('/store/admin/')->with('success', 'El producto se ha creado correctamente!');
     }
