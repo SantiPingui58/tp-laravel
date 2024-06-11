@@ -40,7 +40,7 @@
                     <td>{{ $item->precio }}</td>
                     <td>{{ $item->descuento }}</td>
                     <td>{{ $item->stock }}</td>
-                    <td><img src="{{ $item->imagen }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail" width="100"></td>
+                    <td><img src="{{ $item->image()->src }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail" width="100"></td>
                     <td>
                         <a href="/store/admin/product/{{ $item->id }}/edit" class="btn btn-primary btn-sm">Editar</a>
                         <form action="/store/admin/product/{{ $item->id }}/delete" method="POST" style="display:inline-block;">

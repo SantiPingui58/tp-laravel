@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Agregar Producto</h1>
-        <form method="POST" action="/store/admin/product/create">
+        <form method="POST" action="/store/admin/product/create" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -32,8 +32,8 @@
                 <input type="number" class="form-control" id="stock" name="stock" value="" required>
             </div>
             <div class="mb-3">
-                <label for="imagen" class="form-label">URL de la Imagen</label>
-                <input type="url" class="form-control" id="imagen" name="imagen" value="" required>
+                <label for="imagen" class="form-label">Imagen</label>
+                <input type="file" class="form-control" id="imagen" name="imagen" required>
             </div>
             <button type="submit" class="btn btn-primary">Guardar Producto</button>
         </form>

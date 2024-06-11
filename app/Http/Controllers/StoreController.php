@@ -38,17 +38,16 @@ class StoreController extends Controller
     }
 
     public function create() {
+        //dd(request());
+        $size = request()->file('imagen')->getSize();
+        $extension = request()->file('imagen')->getClientOriginalExtension();
+        $src = request()->file('imagen')->store('products');
 
-        //Verificar el tamaño
-        $size = request()->file()->getSize();
-        $extension = request()->file()->getClientOrioginalExtension();
-        $src = request()->file('image')->store('products');
-
-        $image = new Image();
+        $image = new Image;
         $image->size = $size;
         $image->extension = $extension;
         $image->src = $src;
-        $image-save();
+        $image->save();
 
         $item = new StoreItem();
         $item->nombre = request()->input('nombre');
