@@ -39,8 +39,11 @@
             @foreach ($items as $item)
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="{{ $item->imagen }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail">
-                    <h2>{{ $item->nombre }}</h2>
+                    @if ($item->image)
+                        <img src="{{ asset('storage/' . $item->image->src) }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail" width="100">
+                        @else
+                            <p>-</p>
+                        @endif<h2>{{ $item->nombre }}</h2>
                     <p>{{ $item->descripcion }}</p>
                     <p><strong>Precio:</strong> ${{ $item->precio }}</p>
                     <p><strong>Descuento:</strong> {{ $item->descuento }}%</p>

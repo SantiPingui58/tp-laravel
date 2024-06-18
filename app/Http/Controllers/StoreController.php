@@ -38,10 +38,9 @@ class StoreController extends Controller
     }
 
     public function create() {
-        //dd(request());
         $size = request()->file('imagen')->getSize();
         $extension = request()->file('imagen')->getClientOriginalExtension();
-        $src = request()->file('imagen')->store('products');
+        $src = request()->file('imagen')->store('public/store/products');
 
         $image = new Image;
         $image->size = $size;
@@ -55,7 +54,7 @@ class StoreController extends Controller
         $item->precio = request()->input('precio');
         $item->descuento = request()->input('descuento');
         $item->stock = request()->input('stock');
-        $item->imagen = $image->id;
+        $item->imagen_id = $image->id;
         $item->save();
         return redirect('/store/admin/')->with('success', 'El producto se ha creado correctamente!');
     }
@@ -67,16 +66,35 @@ class StoreController extends Controller
 
     public function update($id) {
         $item = StoreItem::find($id);
+
         $item->nombre = request()->input('nombre');
         $item->descripcion = request()->input('descripcion');
         $item->precio = request()->input('precio');
         $item->descuento = request()->input('descuento');
         $item->stock = request()->input('stock');
-        $item->imagen = request()->input('imagen');
-        $item->save();
-        return redirect('/store/admin/')->with('success', 'El producto se ha guardado correctamente!');
 
+        if (request()->hasFile('imagen')) {
+            $image = Image::find($item->imagen_id);
+            if (!$image) {
+                $image = new Image();
+            }
+
+            $size = request()->file('imagen')->getSize();
+            $extension = request()->file('imagen')->getClientOriginalExtension();
+            $src = request()->file('imagen')->store('public/store/products');
+
+            $image->size = $size;
+            $image->extension = $extension;
+            $image->src = $src;
+            $image->save();
+
+            $item->imagen_id = $image->id;
+        }
+
+        $item->save();
+        return redirect('/store/admin/')->with('success', 'El producto se ha actualizado correctamente!');
     }
+
 
     public function delete($id) {
         $item = StoreItem::find($id);

@@ -11,8 +11,8 @@ class StoreItem extends Model
 
     protected $table = 'productos';
 
-public function image() {
-    return $this->belongsTo(Image::class);
-}
-
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'imagen_id');
+    }
 }

@@ -22,7 +22,7 @@ class StoreItemFactory extends Factory
             'precio'=> rand(1,100000),
             'descuento'=> rand(0,20),
             'stock'=> rand(0,20000),
-            'imagen' => 'https://loremflickr.com/320/240?random=' . rand(1,100),
+            'imagen_id' => rand(1,10),
         ];
     }
 }

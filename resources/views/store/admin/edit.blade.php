@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Editar Producto</h1>
-        <form method="POST" action="/store/admin/product/{{ $item->id }}/update">
+        <form method="POST" action="/store/admin/product/{{ $item->id }}/update" enctype="multipart/form-data">
                     @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -31,10 +31,16 @@
                 <label for="stock" class="form-label">Stock</label>
                 <input type="number" class="form-control" id="stock" name="stock" value="{{ $item->stock }}" required>
             </div>
+
+            @if ($item->image)
             <div class="mb-3">
-                <label for="imagen" class="form-label">URL de la Imagen</label>
-                <input type="url" class="form-control" id="imagen" name="imagen" value="{{ $item->imagen }}" required>
+      <img src="{{ asset('storage/' . $item->image->src) }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail" width="100">
             </div>
+        @endif
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Seleccionar Nueva Imagen</label>
+            <input type="file" class="form-control" id="imagen" name="imagen">
+        </div>
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
     </div>
