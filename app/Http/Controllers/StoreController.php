@@ -6,20 +6,30 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StoreItem;
 use App\Models\Image;
+use App\Models\Category;
 
 class StoreController extends Controller
 {
 
-    public function index() {
-        if(request()->has('nombre')) {
+    public function index(Request $request)
+    {
+        $items = StoreItem::query();
 
-        $items = StoreItem::where('nombre','like','%'.request()->input('nombre').'%')
-        ->orderBy('precio')->get();
-        } else {
-            $items = StoreItem::all();
+        if ($request->has('categoria')) {
+            if ($request->categoria != 0) {
+            $items->whereHas('category', function ($query) use ($request) {
+                $query->where('id', $request->categoria);
+            });
+        }
         }
 
-        return view('store.index',['items'=> $items]);
+        $items = $items->orderBy('price')->get();
+        $categories = Category::all();
+
+        return view('store.index', [
+            'items' => $items,
+            'categories' => $categories,
+        ]);
     }
 
     public function view($id) {
@@ -49,12 +59,12 @@ class StoreController extends Controller
         $image->save();
 
         $item = new StoreItem();
-        $item->nombre = request()->input('nombre');
-        $item->descripcion = request()->input('descripcion');
-        $item->precio = request()->input('precio');
-        $item->descuento = request()->input('descuento');
+        $item->name = request()->input('nombre');
+        $item->description = request()->input('descripcion');
+        $item->price = request()->input('precio');
+        $item->disccount = request()->input('descuento');
         $item->stock = request()->input('stock');
-        $item->imagen_id = $image->id;
+        $item->image_id = $image->id;
         $item->save();
         return redirect('/store/admin/')->with('success', 'El producto se ha creado correctamente!');
     }
@@ -67,10 +77,10 @@ class StoreController extends Controller
     public function update($id) {
         $item = StoreItem::find($id);
 
-        $item->nombre = request()->input('nombre');
-        $item->descripcion = request()->input('descripcion');
-        $item->precio = request()->input('precio');
-        $item->descuento = request()->input('descuento');
+        $item->name = request()->input('nombre');
+        $item->description = request()->input('descripcion');
+        $item->price = request()->input('precio');
+        $item->disccount = request()->input('descuento');
         $item->stock = request()->input('stock');
 
         if (request()->hasFile('imagen')) {
@@ -81,7 +91,7 @@ class StoreController extends Controller
 
             $size = request()->file('imagen')->getSize();
             $extension = request()->file('imagen')->getClientOriginalExtension();
-            $src = request()->file('imagen')->store('public/store/products');
+            $src = request()->file('imagen')->store('products','public');
 
             $image->size = $size;
             $image->extension = $extension;

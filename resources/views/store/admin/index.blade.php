@@ -17,6 +17,7 @@
                 <th>Precio</th>
                 <th>Descuento</th>
                 <th>Stock</th>
+                <th>Categoria</th>
                 <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
@@ -25,11 +26,12 @@
             @foreach ($items as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->nombre }}</td>
-                    <td>{{ $item->descripcion }}</td>
-                    <td>{{ $item->precio }}</td>
-                    <td>{{ $item->descuento }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->description }}</td>
+                    <td>{{ $item->price }}</td>
+                    <td>{{ $item->disccount }}%</td>
                     <td>{{ $item->stock }}</td>
+                    <td>{{ $item->category->name }}</td>
                     <td>
                         @if ($item->image)
                         <img src="{{ asset('storage/' . $item->image->src) }}" alt="Imagen de {{ $item->nombre }}" class="img-thumbnail" width="100">

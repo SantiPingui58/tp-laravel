@@ -17,12 +17,13 @@ class StoreItemFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => fake()->text(20),
-            'descripcion' => fake()->sentence,
-            'precio'=> rand(1,100000),
-            'descuento'=> rand(0,20),
+            'name' => fake()->text(20),
+            'description' => fake()->sentence,
+            'price'=> rand(1,100000),
+            'disccount'=> rand(0,20),
             'stock'=> rand(0,20000),
-            'imagen_id' => rand(1,10),
+            'image_id' => rand(1,10),
+            'category_id' => rand(1,5),
         ];
     }
 }

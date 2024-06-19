@@ -14,11 +14,11 @@
         <div class="card mt-3">
             <div class="card-body">
                 <h2 class="card-title">{{ $item->nombre }}</h2>
-                <p class="card-text"><strong>Descripción:</strong> {{ $item->descripcion }}</p>
-                <p class="card-text"><strong>Precio:</strong> ${{ $item->precio }}</p>
-                <p class="card-text"><strong>Descuento:</strong> {{ $item->descuento }}%</p>
+                <p class="card-text"><strong>Descripción:</strong> {{ $item->description }}</p>
+                <p class="card-text"><strong>Precio:</strong> ${{ $item->price }}</p>
+                <p class="card-text"><strong>Descuento:</strong> {{ $item->disccount }}%</p>
                 <p class="card-text"><strong>Stock:</strong> {{ $item->stock }}</p>
-                <img src="{{ $item->imagen }}" alt="Imagen de {{ $item->nombre }}" class="img-fluid">
+                <img src="{{ $item->image }}" alt="Imagen de {{ $item->name }}" class="img-fluid">
                 <a href="#" class="btn btn-primary mt-3">Agregar al Carrito de Compras</a>
                 <a href="/store" class="btn btn-secondary mt-3">Volver a la Tienda</a>
             </div>
