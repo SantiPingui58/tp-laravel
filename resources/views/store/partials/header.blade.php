@@ -25,6 +25,9 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
+                <li class="nav-item">
+                        <a class="nav-link" href="/store/checkout">Ir al Carrito</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Iniciar Sesión</a>
                     </li>

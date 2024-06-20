@@ -13,19 +13,19 @@
                     @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $item->nombre }}" required>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $item->name }}" required>
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $item->descripcion }}</textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $item->description }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="precio" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio" name="precio" value="{{ $item->precio }}" required>
+                <input type="number" class="form-control" id="precio" name="precio" value="{{ $item->price }}" required>
             </div>
             <div class="mb-3">
                 <label for="descuento" class="form-label">Descuento</label>
-                <input type="number" class="form-control" id="descuento" name="descuento" value="{{ $item->descuento }}" required>
+                <input type="number" class="form-control" id="descuento" name="descuento" value="{{ $item->disccount }}" required>
             </div>
             <div class="mb-3">
                 <label for="stock" class="form-label">Stock</label>

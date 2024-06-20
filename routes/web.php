@@ -21,7 +21,9 @@ Route::get('/', function () {
 
 Route::get('store', [StoreController::class, 'index']);
 Route::get('store/product/{id}',[StoreController::class, 'view']);
-
+Route::get('store/checkout', [StoreController::class, 'checkout']);
+Route::get('store/cart/add/{id}', [StoreController::class, 'addToCart']);
+Route::get('store/cart/remove/{id}', [StoreController::class, 'removeFromCart']);
 
 Route::get('store/admin', [StoreController::class, 'admin']);
 Route::get('store/admin/new', [StoreController::class, 'new']);

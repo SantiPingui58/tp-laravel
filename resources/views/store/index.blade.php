@@ -1,5 +1,18 @@
 
 @include('store.partials.header');
+@if(session('success'))
+    <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('warning'))
+    <div class="alert alert-warning" role="alert">
+        {{ session('warning') }}
+    </div>
+@endif
+
+
 <style>
         .product-card {
             border: 1px solid #ccc;
@@ -51,7 +64,11 @@
                     <p><strong>Descuento:</strong> {{ $item->disccount }}%</p>
                     <p><strong>Stock:</strong> {{ $item->stock }}</p>
                     <a href="/store/product/{{ $item->id }}" class="btn btn-primary">Ver Detalles</a>
-                    <a href="#" class="btn btn-secondary">Agregar al Carrito</a>
+                    @if (session('cart') && in_array($item->id, session('cart')))
+                            <a href="/store/cart/remove/{{ $item->id }}" class="btn btn-danger">Quitar del Carrito</a>
+                        @else
+                            <a href="/store/cart/add/{{ $item->id }}" class="btn btn-secondary">Agregar al Carrito</a>
+                        @endif
                 </div>
             </div>
             @endforeach

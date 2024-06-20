@@ -5,6 +5,13 @@
         {{ session('success') }}
     </div>
 @endif
+
+@if(session('warning'))
+    <div class="alert alert-warning" role="alert">
+        {{ session('warning') }}
+    </div>
+@endif
+
 <div class="container">
     <h1 class="mt-5">Productos</h1>
     @if(count($items) > 0)

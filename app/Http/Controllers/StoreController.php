@@ -98,7 +98,7 @@ class StoreController extends Controller
             $image->src = $src;
             $image->save();
 
-            $item->imagen_id = $image->id;
+            $item->image_id = $image->id;
         }
 
         $item->save();
@@ -110,6 +110,43 @@ class StoreController extends Controller
         $item = StoreItem::find($id);
         $item->delete();
         return redirect('/store/admin/')->with('success', 'El producto se ha eliminado correctamente!');
+    }
+
+
+    public function addToCart($id) {
+        if (session()->has('cart')) {
+            $ids = session('cart');
+            $ids[] = $id;
+            session(['cart' => $ids]);
+        } else {
+            session(['cart' => [$id]]);
+        }
+
+        $item = StoreItem::find($id);
+        return redirect('/store/')->with('success', "$item->name ha sido agregado al carrito de compras!");
+    }
+
+    public function removeFromCart($id) {
+        $ids = session('cart');
+        $ids = array_filter($ids, function ($current_id) use ($id) {
+            return $current_id != $id;
+        });
+
+        session(['cart' => $ids]);
+        $item = StoreItem::find($id);
+        return redirect('/store/')->with('warning', "$item->name ha sido eliminado del carrito de compras.");
+    }
+
+
+    public function checkout() {
+        if (session()->has('cart')) {
+        $items = StoreItem::whereIn('id', session('cart'))->get();
+        } else {
+            $items = [];
+        }
+        return view('store.checkout', [
+            'items' => $items
+        ]);
     }
 
 
