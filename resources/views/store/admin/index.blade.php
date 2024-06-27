@@ -13,6 +13,7 @@
 @endif
 
 <div class="container">
+<a href="/store" class="btn btn-secondary">Volver a la Tienda</a>
     <h1 class="mt-5">Productos</h1>
     @if(count($items) > 0)
         <table class="table table-striped mt-3">

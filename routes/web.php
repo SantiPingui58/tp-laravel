@@ -39,3 +39,7 @@ Route::post('store/admin/product/{id}/update', [StoreController::class, 'update'
 Route::post('store/admin/product/{id}/delete', [StoreController::class, 'delete'])->middleware('auth');
 Route::post('store/admin/product/create', [StoreController::class, 'create'])->middleware('auth');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
