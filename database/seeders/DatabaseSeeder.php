@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\StoreItem;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        StoreItem::factory(20)->create();
+        Product::factory(20)->create();
 
          Category::factory()->ropa()->create();
         Category::factory()->comida()->create();

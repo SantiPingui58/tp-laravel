@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\StoreItem;
+use App\Models\Product;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Sale;
@@ -14,7 +14,7 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {
-        $items = StoreItem::query();
+        $items = Product::query();
 
         if ($request->has('categoria')) {
             if ($request->categoria != 0) {
@@ -34,13 +34,13 @@ class StoreController extends Controller
     }
 
     public function view($id) {
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
         return view('store.view', ['item' => $item]);
     }
 
 
     public function admin() {
-        $items = StoreItem::all();
+        $items = Product::all();
         return view('store.admin.index',['items'=> $items]);
     }
 
@@ -59,7 +59,7 @@ class StoreController extends Controller
         $image->src = $src;
         $image->save();
 
-        $item = new StoreItem();
+        $item = new Product();
         $item->name = request()->input('nombre');
         $item->description = request()->input('descripcion');
         $item->price = request()->input('precio');
@@ -71,12 +71,12 @@ class StoreController extends Controller
     }
 
     public function edit($id) {
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
         return view('store.admin.edit', ['item' => $item]);
     }
 
     public function update($id) {
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
 
         $item->name = request()->input('nombre');
         $item->description = request()->input('descripcion');
@@ -108,7 +108,7 @@ class StoreController extends Controller
 
 
     public function delete($id) {
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
         $item->delete();
         return redirect('/store/admin/')->with('success', 'El producto se ha eliminado correctamente!');
     }
@@ -123,7 +123,7 @@ class StoreController extends Controller
             session(['cart' => [$id]]);
         }
 
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
         return redirect('/store/')->with('success', "$item->name ha sido agregado al carrito de compras!");
     }
 
@@ -134,14 +134,14 @@ class StoreController extends Controller
         });
 
         session(['cart' => $ids]);
-        $item = StoreItem::find($id);
+        $item = Product::find($id);
         return redirect('/store/')->with('warning', "$item->name ha sido eliminado del carrito de compras.");
     }
 
 
     public function checkout() {
         if (session()->has('cart')) {
-        $items = StoreItem::whereIn('id', session('cart'))->get();
+        $items = Product::whereIn('id', session('cart'))->get();
         } else {
             $items = [];
         }
@@ -156,8 +156,8 @@ class StoreController extends Controller
         $user = auth()->user();
         $sale->user_id = $user->id;
         $sale->save();
-        $storeItemIds = session('cart');
-        $sale->items()->attach($storeItemIds);
+        $ProductIds = session('cart');
+        $sale->products()->attach($ProductIds);
         session()->forget('cart');
         return redirect('/store/')->with('success', "Compra realizada!");
     }
