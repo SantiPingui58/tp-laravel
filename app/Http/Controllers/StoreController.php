@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\StoreItem;
 use App\Models\Image;
 use App\Models\Category;
+use App\Models\Sale;
 
 class StoreController extends Controller
 {
@@ -149,5 +150,15 @@ class StoreController extends Controller
         ]);
     }
 
-
+    public function sale()
+    {
+        $sale = new Sale;
+        $user = auth()->user();
+        $sale->user_id = $user->id;
+        $sale->save();
+        $storeItemIds = session('cart');
+        $sale->items()->attach($storeItemIds);
+        session()->forget('cart');
+        return redirect('/store/')->with('success', "Compra realizada!");
+    }
 }

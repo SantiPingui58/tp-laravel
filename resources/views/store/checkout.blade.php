@@ -26,7 +26,7 @@
             @endforeach
             <div class="mt-4">
             <a href="/store" class="btn btn-secondary">Volver a la tienda</a>
-            <button class="btn btn-success" onclick="confirmPayment()">Pagar</button>
+            <a href="/store/sale" class="btn btn-success">Pagar</a>
         </div>
 
             @else
@@ -41,6 +41,7 @@
 <script>
     function confirmPayment() {
         alert("Compra realizada satisfactoriamente!");
+        window.location.href = '/store/sale';
     }
 </script>
 

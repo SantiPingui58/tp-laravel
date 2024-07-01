@@ -29,6 +29,7 @@ Route::get('/auth/login', [AuthController::class, 'login']);
 Route::get('store', [StoreController::class, 'index']);
 Route::get('store/product/{id}',[StoreController::class, 'view']);
 Route::get('store/checkout', [StoreController::class, 'checkout'])->middleware('auth');
+Route::get('store/sale', [StoreController::class, 'sale'])->middleware('auth');
 Route::get('store/cart/add/{id}', [StoreController::class, 'addToCart'])->middleware('auth');
 Route::get('store/cart/remove/{id}', [StoreController::class, 'removeFromCart'])->middleware('auth');
 
